@@ -15,11 +15,7 @@ function Home() {
     select: (data) => data?.slice(0, 100),
   });
 
-  return (
-    <>
-      <h1>home</h1>
-    </>
-  );
+  return <></>;
 }
 
 export default Home;

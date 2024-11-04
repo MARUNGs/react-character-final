@@ -1,7 +1,14 @@
+import axios from "axios";
+
 const BASE_URL = `https://marvel-proxy.nomadcoders.workers.dev/v1/public/characters`;
 
 export async function queryCharacters() {
-  return fetch(BASE_URL).then((response) => response.json());
+  const {
+    data: {
+      data: { results },
+    },
+  } = await axios.get(BASE_URL);
+  return results;
 }
 
 export async function queryCharacterInfo(id: number) {
