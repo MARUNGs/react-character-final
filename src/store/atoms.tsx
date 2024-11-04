@@ -1,22 +1,21 @@
 import { atom, selector } from "recoil";
 
-export const titleState = atom<string[]>({
-  key: "titleState",
-  default: ["POPULAR", "COMING", "NOW PLAYING"],
+export interface IObject {
+  title: string;
+  flag: boolean;
+}
+
+const headerState = atom<IObject[]>({
+  key: "headerState",
+  default: [
+    { title: "POPULAR", flag: false },
+    { title: "COMING", flag: false },
+    { title: "NOW PLAYING", flag: false },
+  ],
 });
 
-export const titleFlagState = atom<boolean[]>({
-  key: "titleFlagState",
-  default: [false, false, false],
-});
-
-export const titleSelector = selector<string[]>({
-  key: "titleSelector",
-  get: ({ get }) => get(titleState),
-});
-
-export const titleFlagSelector = selector<boolean[]>({
-  key: "titleFlagSelector",
-  get: ({ get }) => get(titleFlagState),
-  set: ({ set }, object) => set(titleFlagState, object),
+export const headerSelector = selector<IObject[]>({
+  key: "headerSelector",
+  get: ({ get }) => get(headerState),
+  set: ({ set }, object) => set(headerState, object),
 });

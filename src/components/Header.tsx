@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { titleSelector, titleFlagSelector } from "../store/atoms";
+import { useRecoilState } from "recoil";
+import { headerSelector, IObject } from "../store/atoms";
 
 const HeaderContainer = styled.div.attrs({
   className: `flex justify-center`,
@@ -26,25 +26,29 @@ const btnVars = {
 };
 
 function Header() {
-  const list = useRecoilValue(titleSelector);
-  const [flagList, setFlagList] = useRecoilState(titleFlagSelector);
+  // const [flagList, setFlagList] = useRecoilState(titleFlagSelector);
+  const [header, setHeader] = useRecoilState(headerSelector);
 
   // 클릭할 때 클릭대상은 true, 그 외는 false 취급한다.
-  const onClick = (i: number) => {
-    const fList = [...flagList];
-    setFlagList(fList.map((flag, idx) => (i === idx ? true : false)));
+  const onClick = ({ title, flag }: IObject, i: number): void => {
+    const list = [...header];
+    setHeader(
+      list.map((object, idx) =>
+        i === idx ? { title, flag: true } : { title: object.title, flag: false }
+      )
+    );
   };
 
   return (
     <>
       <HeaderContainer>
-        {list?.map((title, i) => (
+        {header?.map(({ title, flag }, i) => (
           <Btn
             key={i}
-            onClick={() => onClick(i)}
+            onClick={() => onClick({ title, flag }, i)}
             variants={btnVars}
-            animate={flagList[i] ? "hover" : ""}
-            whileHover={flagList[i] ? "hover" : ""}
+            animate={flag ? "hover" : ""}
+            whileHover={flag ? "hover" : ""}
           >
             {title}
           </Btn>
