@@ -8,7 +8,7 @@ export interface IObject {
 const headerState = atom<IObject[]>({
   key: "headerState",
   default: [
-    { title: "POPULAR", flag: false },
+    { title: "POPULAR", flag: true },
     { title: "COMING", flag: false },
     { title: "NOW PLAYING", flag: false },
   ],

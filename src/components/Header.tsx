@@ -26,7 +26,6 @@ const btnVars = {
 };
 
 function Header() {
-  // const [flagList, setFlagList] = useRecoilState(titleFlagSelector);
   const [header, setHeader] = useRecoilState(headerSelector);
 
   // 클릭할 때 클릭대상은 true, 그 외는 false 취급한다.
