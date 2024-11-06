@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useRecoilState } from "recoil";
 import { headerSelector, IObject } from "../store/atoms";
+import { Link } from "react-router-dom";
 
 const HeaderContainer = styled.div.attrs({
   className: `flex justify-center`,
@@ -42,15 +43,25 @@ function Header() {
     <>
       <HeaderContainer>
         {header?.map(({ title, flag }, i) => (
-          <Btn
+          <Link
             key={i}
-            onClick={() => onClick({ title, flag }, i)}
-            variants={btnVars}
-            animate={flag ? "hover" : ""}
-            whileHover={flag ? "hover" : ""}
+            to={
+              title === "POPULAR"
+                ? ``
+                : title === "COMING"
+                ? `coming-soon`
+                : `now-playing`
+            }
           >
-            {title}
-          </Btn>
+            <Btn
+              onClick={() => onClick({ title, flag }, i)}
+              variants={btnVars}
+              animate={flag ? "hover" : ""}
+              whileHover={flag ? "hover" : ""}
+            >
+              {title}
+            </Btn>
+          </Link>
         ))}
       </HeaderContainer>
     </>

@@ -15,7 +15,11 @@ export async function getNowPlaying() {
 }
 
 export async function getComingSoon() {
-  return fetch(`${BASE_URL}/coming-soon`).then((r) => r.json());
+  const {
+    data: { results },
+  } = await axios.get(`${BASE_URL}/coming-soon`);
+
+  return results;
 }
 
 export async function getMovie(id: number) {

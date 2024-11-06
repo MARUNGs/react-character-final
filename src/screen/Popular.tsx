@@ -1,53 +1,50 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPopular } from "../api/data";
-import styled from "styled-components";
-import Card from "../components/Card";
-
-interface IPopular {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: object;
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
-const Container = styled.div.attrs({
-  className: "flex justify-center px-4 m-20",
-})``;
-
-const GridContainer = styled.div.attrs({
-  className: `grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl w-full`,
-})``;
+import { getPopular, makeImagePath } from "../api/data";
+import CardContainer from "../components/CardContainer";
+import { useRecoilState } from "recoil";
+import { headerSelector, popularSelector } from "../store/atoms";
+import { useEffect, useState } from "react";
+import {
+  Container,
+  GridContainer,
+  CardBox,
+  Img,
+  // Overlay,
+} from "../styles/CardContainerStyled";
+import { IPopular } from "../types/interface";
 
 function Popular() {
+  const [id, setId] = useState<string | null>(null);
+
   // api
   const { isLoading, data } = useQuery<IPopular[]>({
-    queryKey: ["characterList"],
+    queryKey: ["popular"],
     queryFn: getPopular,
   });
+  const [popular, setPopular] = useRecoilState(popularSelector);
+
+  // api 데이터 저장
+  useEffect(() => {
+    data !== undefined && setPopular(data);
+  }, [data, setPopular]);
+
+  console.log(popular);
 
   return (
     <>
       {isLoading ? (
-        <h1>loading ...</h1>
+        <h1>Loading ...</h1>
       ) : (
         <Container>
           <GridContainer>
-            {data?.map((character) => (
-              <Card
-                key={character.id}
-                id={character.id}
-                img={character.poster_path}
-              />
+            {popular?.map((character, i) => (
+              <CardBox
+                key={i}
+                layoutId={String(id)}
+                onClick={() => setId(String(character.id))}
+              >
+                <Img src={makeImagePath(character.poster_path)} />
+              </CardBox>
             ))}
           </GridContainer>
         </Container>
