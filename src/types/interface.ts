@@ -48,3 +48,9 @@ export interface DataProps {
   data: IPopular[] | undefined;
   title: string;
 }
+
+export enum ETitle {
+  "POPULAR",
+  "COMINGSOON",
+  "NOWPLAYING",
+}

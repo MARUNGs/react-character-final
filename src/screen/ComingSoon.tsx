@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getComingSoon, makeImagePath } from "../api/data";
-import { IPopular } from "../types/interface";
+import { ETitle, IPopular } from "../types/interface";
 import CardContainer from "../components/CardContainer";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { comingSoonSelector, headerSelector } from "../store/atoms";
@@ -21,14 +21,6 @@ function CommingSoon() {
     queryKey: ["comingSoon"],
     queryFn: getComingSoon,
   });
-  const [comingSoon, setComingSoon] = useRecoilState(comingSoonSelector);
-
-  // api 데이터 저장
-  useEffect(() => {
-    data !== undefined && setComingSoon(data);
-  }, [data, setComingSoon]);
-
-  console.log(comingSoon);
 
   return (
     <>
@@ -37,10 +29,10 @@ function CommingSoon() {
       ) : (
         <Container>
           <GridContainer>
-            {comingSoon?.map((character, i) => (
+            {data?.map((character, i) => (
               <CardBox
                 key={i}
-                layoutId={String(id)}
+                layoutId={`${ETitle.COMINGSOON}${id}`}
                 onClick={() => setId(String(character.id))}
               >
                 <Img src={makeImagePath(character.poster_path)} />

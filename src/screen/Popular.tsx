@@ -11,7 +11,7 @@ import {
   Img,
   // Overlay,
 } from "../styles/CardContainerStyled";
-import { IPopular } from "../types/interface";
+import { ETitle, IPopular } from "../types/interface";
 
 function Popular() {
   const [id, setId] = useState<string | null>(null);
@@ -21,14 +21,6 @@ function Popular() {
     queryKey: ["popular"],
     queryFn: getPopular,
   });
-  const [popular, setPopular] = useRecoilState(popularSelector);
-
-  // api 데이터 저장
-  useEffect(() => {
-    data !== undefined && setPopular(data);
-  }, [data, setPopular]);
-
-  console.log(popular);
 
   return (
     <>
@@ -37,10 +29,10 @@ function Popular() {
       ) : (
         <Container>
           <GridContainer>
-            {popular?.map((character, i) => (
+            {data?.map((character, i) => (
               <CardBox
                 key={i}
-                layoutId={String(id)}
+                layoutId={String(`${ETitle.POPULAR}${id}`)}
                 onClick={() => setId(String(character.id))}
               >
                 <Img src={makeImagePath(character.poster_path)} />
