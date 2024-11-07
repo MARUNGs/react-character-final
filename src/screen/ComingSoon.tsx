@@ -1,43 +1,76 @@
 import { useQuery } from "@tanstack/react-query";
 import { getComingSoon, makeImagePath } from "../api/data";
 import { ETitle, IPopular } from "../types/interface";
-import CardContainer from "../components/CardContainer";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { comingSoonSelector, headerSelector } from "../store/atoms";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Container,
   GridContainer,
   CardBox,
   Img,
-  // Overlay,
 } from "../styles/CardContainerStyled";
+import { AnimatePresence } from "framer-motion";
+import { useMatch, useNavigate } from "react-router-dom";
+
+const cardBoxVars = {
+  init: {
+    scale: 0,
+  },
+  doing: {
+    scale: 1,
+    transition: {},
+  },
+  hover: {
+    y: -50,
+    transition: {
+      duration: 0.3,
+      type: "tween",
+    },
+  },
+};
 
 function CommingSoon() {
   const [id, setId] = useState<string | null>(null);
-  const [title, setTitle] = useState("");
+  const nagivate = useNavigate();
+  const movieMatch = useMatch("movie/:movieId");
+  const [characterId, setCharacterId] = useState(0);
 
   const { isLoading, data } = useQuery<IPopular[]>({
     queryKey: ["comingSoon"],
     queryFn: getComingSoon,
   });
 
+  // function
+  // 1. cardBox를 누르면 url를 설정한다.
+  // 2. 상태값에 characterId 값을 설정한다.
+  const onCardBoxClicked = (id: number) => {
+    nagivate(`movie/${id}`);
+    setCharacterId(id);
+  };
+
   return (
     <>
       {isLoading ? (
-        <h1>loading ...</h1>
+        <Container>
+          <GridContainer>Loading...</GridContainer>
+        </Container>
       ) : (
         <Container>
           <GridContainer>
-            {data?.map((character, i) => (
-              <CardBox
-                key={i}
-                layoutId={`${ETitle.COMINGSOON}${id}`}
-                onClick={() => setId(String(character.id))}
-              >
-                <Img src={makeImagePath(character.poster_path)} />
-              </CardBox>
-            ))}
+            <AnimatePresence>
+              {data?.map((character, i) => (
+                <CardBox
+                  key={i}
+                  variants={cardBoxVars}
+                  initial="init"
+                  animate="doing"
+                  whileHover="hover"
+                  layoutId={String(`${ETitle.COMINGSOON}${character.id}`)}
+                  onClick={() => onCardBoxClicked(character.id)}
+                >
+                  <Img src={makeImagePath(character.poster_path)} />
+                </CardBox>
+              ))}
+            </AnimatePresence>
           </GridContainer>
         </Container>
       )}

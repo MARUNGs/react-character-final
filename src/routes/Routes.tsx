@@ -18,14 +18,33 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
+        path: "movie/:movieId",
+        element: <Popular />,
+        errorElement: <ErrorComponent />,
+      },
+      {
         path: "coming-soon",
         element: <ComingSoon />,
         errorElement: <ErrorComponent />,
+        children: [
+          {
+            path: "movie/:movieId",
+            element: <ComingSoon />,
+            errorElement: <ErrorComponent />,
+          },
+        ],
       },
       {
         path: "now-playing",
         element: <NowPlaying />,
         errorElement: <ErrorComponent />,
+        children: [
+          {
+            path: "movie/:movieId",
+            element: <NowPlaying />,
+            errorElement: <ErrorComponent />,
+          },
+        ],
       },
     ],
   },
