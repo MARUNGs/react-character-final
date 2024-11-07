@@ -15,7 +15,7 @@ export interface IPopular {
   vote_count: number;
 }
 
-interface IMovie {
+export interface IMovie {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: object;

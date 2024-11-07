@@ -1,3 +1,5 @@
+// 시도해보았으면 좋았을지도 모르는 ...
+
 import { atom, selector } from "recoil";
 import { IPopular } from "../types/interface";
 

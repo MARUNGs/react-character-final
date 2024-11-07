@@ -2,12 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getComingSoon, makeImagePath } from "../api/data";
 import { ETitle, IPopular } from "../types/interface";
 import { useState } from "react";
-import {
-  Container,
-  GridContainer,
-  CardBox,
-  Img,
-} from "../styles/CardContainerStyled";
+import { Container, GridContainer, CardBox, Img } from "../styles/ScreenStyled";
 import { AnimatePresence } from "framer-motion";
 import { useMatch, useNavigate } from "react-router-dom";
 
@@ -29,7 +24,6 @@ const cardBoxVars = {
 };
 
 function CommingSoon() {
-  const [id, setId] = useState<string | null>(null);
   const nagivate = useNavigate();
   const movieMatch = useMatch("movie/:movieId");
   const [characterId, setCharacterId] = useState(0);

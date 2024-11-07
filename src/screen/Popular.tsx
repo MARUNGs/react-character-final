@@ -8,17 +8,20 @@ import {
   Img,
   DarkOverlay,
   Movie,
-  MovieImg,
-} from "../styles/CardContainerStyled";
-import { ETitle, IPopular } from "../types/interface";
+  MovieImgDiv,
+  MovieTitle,
+  MovieContent,
+  MovieX,
+} from "../styles/ScreenStyled";
+import { ETitle, IMovie, IPopular } from "../types/interface";
 import { AnimatePresence, useScroll } from "framer-motion";
-import { useMatch, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const containerVars = {
   init: {},
   animate: {
     transition: {
-      staggerChildren: 0.2, // 자식 요소가 0.2초 간격으로 나타남
+      staggerChildren: 0.2,
     },
   },
 };
@@ -29,7 +32,6 @@ const cardBoxVars = {
   },
   doing: {
     scale: 1,
-    transition: {},
   },
   hover: {
     y: -50,
@@ -42,36 +44,36 @@ const cardBoxVars = {
 
 function Popular() {
   const nagivate = useNavigate();
-  const movieMatch = useMatch("/movie/:movieId");
   const [characterId, setCharacterId] = useState(0);
   const { scrollY } = useScroll();
 
-  // api
+  // api - popular movie list
   const { isLoading, data } = useQuery<IPopular[]>({
     queryKey: ["popular"],
     queryFn: getPopular,
   });
 
-  const { isLoading: movieLoading, data: movieData } = useQuery<IPopular>({
+  // api - 영화 상세내용
+  const { data: movieData } = useQuery<IMovie>({
     queryKey: ["popular", "id"],
     queryFn: () => getMovie(characterId),
   });
 
-  console.log("무비데이터 확인?");
-  console.log(movieData);
-
   // function
-  // 1. cardBox를 누르면 url를 설정한다.
-  // 2. 상태값에 characterId 값을 설정한다.
   const onCardBoxClicked = (id: number) => {
-    nagivate(`movie/${id}`);
-    setCharacterId(id);
+    nagivate(`movie/${id}`); // cardBox를 누르면 url를 설정한다.
+    setCharacterId(id); // characterId 저장
   };
 
-  // 클릭한 movie 정보
-  const movieId = movieMatch?.params.movieId;
-  const clickedMovie =
-    movieId && data?.find((movie) => movie.id === Number(movieId));
+  // overlay 영역 클릭시, 메인 url로 돌아가고 characterId값을 초기화한다.
+  const onOverlayClicked = () => {
+    nagivate("/");
+    setCharacterId(0); // characterId 초기화
+  };
+
+  // const movieId = movieMatch?.params.movieId; // url에 기재된 movieId
+  const movieInfo = // 클릭한 movie 정보
+    characterId && data?.find((movie) => movie.id === characterId);
 
   return (
     <>
@@ -80,6 +82,7 @@ function Popular() {
           <GridContainer>Loading...</GridContainer>
         </Container>
       ) : (
+        // Movie List Area
         <Container>
           <GridContainer
             variants={containerVars}
@@ -94,6 +97,11 @@ function Popular() {
                   initial="init"
                   animate="doing"
                   whileHover="hover"
+                  // cardBox를 하나씩 보여주도록 설정
+                  transition={{
+                    type: "tween",
+                    // delay: i * 0.3,
+                  }}
                   layoutId={String(`${ETitle.POPULAR}${character.id}`)}
                   onClick={() => onCardBoxClicked(character.id)}
                 >
@@ -103,23 +111,34 @@ function Popular() {
             </AnimatePresence>
           </GridContainer>
 
+          {/* Movie Modal Area */}
           <AnimatePresence>
-            {/* 1. CardBox를 클릭할 때, url이 변경된다. */}
-            {/* 2. url이 변경되면 url 정보를 movieMatch 변수에서 확인할 수 있다. */}
-            {movieMatch ? (
+            {characterId ? (
               <>
-                <DarkOverlay></DarkOverlay>
-                {/* characterId를 가져오는 건 movieMatch값으로 활용할 것. */}
-                <Movie style={{ top: scrollY.get() + 50 }}>
-                  {clickedMovie && (
+                <DarkOverlay animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+                <Movie
+                  layoutId={`${ETitle.POPULAR}${String(characterId)}`}
+                  style={{ top: scrollY.get() + 50 }}
+                >
+                  {movieInfo && (
                     <>
-                      <MovieImg
-                        style={{
-                          backgroundImage: `linear-gradient(to top, black, transparant), url(${makeImagePath(
-                            String(clickedMovie.backdrop_path)
-                          )})`,
-                        }}
+                      {/* <MovieX /> */}
+                      <MovieX
+                        onClick={onOverlayClicked}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z"
+                        ></path>
+                      </MovieX>
+                      <MovieImgDiv
+                        $bgImg={makeImagePath(movieInfo.backdrop_path)}
                       />
+                      <MovieTitle>{movieInfo.title}</MovieTitle>
+                      <MovieContent>{movieInfo.overview}</MovieContent>
                     </>
                   )}
                 </Movie>

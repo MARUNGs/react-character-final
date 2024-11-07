@@ -11,7 +11,9 @@ export const GridContainer = styled(motion.div).attrs({
 
 export const CardBox = styled(motion.div).attrs({
   className: "h-90 border border-gray-300 rounded-lg",
-})``;
+})`
+  cursor: pointer;
+`;
 
 export const Img = styled.img`
   border-radius: 15px;
@@ -31,24 +33,55 @@ export const DarkOverlay = styled(motion.div)`
   top: 0;
 
   background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
 `;
 
 export const Movie = styled(motion.div)`
   // top 설정은 컴포넌트 내부에서 style로 설정할 것.
   position: absolute;
 
-  width: 40vw;
-  height: 80vh;
+  width: 38vw;
+  height: 90vh;
 
   border-radius: 15px;
   overflow: hidden;
 
-  background-color: ${(props) => props.theme.bgColor};
+  /* background-color: ${(props) => props.theme.bgColor}; */
+  background-color: black;
 `;
 
-export const MovieImg = styled.div`
+export const MovieImgDiv = styled.div<{ $bgImg: string }>`
   width: 100%;
-  height: 400px;
+  height: 500px;
   background-size: cover;
   background-position: center center;
+  background-image: linear-gradient(to top, black, transparent),
+    url(${(props) => props.$bgImg});
+`;
+
+export const MovieTitle = styled.h3`
+  font-size: 23px;
+  margin-top: 5px;
+  margin-left: 10px;
+`;
+
+export const MovieContent = styled.p`
+  width: 90%;
+
+  margin-top: 15px;
+  margin-left: 10px;
+
+  line-height: 20px;
+`;
+
+export const MovieX = styled.svg`
+  width: 30px;
+  height: 30px;
+  opacity: 0.5; // 불투명도
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  cursor: pointer;
 `;
