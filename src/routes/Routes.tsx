@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Popular from "../screen/Popular";
-import Root from "../screen/Root";
+import Root from "../Root";
 import ComingSoon from "../screen/ComingSoon";
 import NowPlaying from "../screen/NowPlaying";
 

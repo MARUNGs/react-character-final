@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMovie, getPopular, makeImagePath } from "../api/data";
+import { getPopular, makeImagePath } from "../api/data";
 import { useState } from "react";
 import {
   Container,
@@ -13,9 +13,9 @@ import {
   MovieContent,
   MovieX,
 } from "../styles/ScreenStyled";
-import { ETitle, IMovie, IPopular } from "../types/interface";
+import { ETitle, IPopular } from "../types/interface";
 import { AnimatePresence, useScroll } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 
 const containerVars = {
   init: {},
@@ -43,9 +43,14 @@ const cardBoxVars = {
 };
 
 function Popular() {
+  //
+
   const nagivate = useNavigate();
   const [characterId, setCharacterId] = useState(0);
   const { scrollY } = useScroll();
+  // const movieMatch = useMatch("movie/:movieId");
+  // const movieId = movieMatch ? movieMatch.params.movieId : "";
+  // console.log(movieMatch);
 
   // api - popular movie list
   const { isLoading, data } = useQuery<IPopular[]>({
@@ -54,10 +59,11 @@ function Popular() {
   });
 
   // api - 영화 상세내용
-  const { data: movieData } = useQuery<IMovie>({
-    queryKey: ["popular", "id"],
-    queryFn: () => getMovie(characterId),
-  });
+  // const { data: movieData } = useQuery<IMovie>({
+  //   queryKey: ["popular", "id"],
+  //   queryFn: () => getMovie(movieId),
+  //   enabled: !!movieId,
+  // });
 
   // function
   const onCardBoxClicked = (id: number) => {
@@ -71,7 +77,6 @@ function Popular() {
     setCharacterId(0); // characterId 초기화
   };
 
-  // const movieId = movieMatch?.params.movieId; // url에 기재된 movieId
   const movieInfo = // 클릭한 movie 정보
     characterId && data?.find((movie) => movie.id === characterId);
 
@@ -118,19 +123,21 @@ function Popular() {
                 <DarkOverlay animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
                 <Movie
                   layoutId={`${ETitle.POPULAR}${String(characterId)}`}
-                  style={{ top: scrollY.get() + 50 }}
+                  style={{ top: scrollY.get() + 35 }}
                 >
                   {movieInfo && (
                     <>
-                      {/* <MovieX /> */}
-                      <MovieX
+                      {/* 하위 컴포넌트로 제작해야 할듯... */}
+                      <Movie />
+
+                      {/* <MovieX
                         onClick={onOverlayClicked}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z"
                         ></path>
                       </MovieX>
@@ -138,7 +145,7 @@ function Popular() {
                         $bgImg={makeImagePath(movieInfo.backdrop_path)}
                       />
                       <MovieTitle>{movieInfo.title}</MovieTitle>
-                      <MovieContent>{movieInfo.overview}</MovieContent>
+                      <MovieContent>{movieInfo.overview}</MovieContent> */}
                     </>
                   )}
                 </Movie>

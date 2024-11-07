@@ -17,17 +17,20 @@ function Header() {
         <Items>
           <Link to={``}>
             <Item>
-              POPULAR {popularUrl && <SpanCircle layoutId="circle" />}
+              POPULAR{" "}
+              {popularUrl && <SpanCircle layoutId="circle">✨</SpanCircle>}
             </Item>
           </Link>
           <Link to={`coming-soon`}>
             <Item>
-              COMING SOON {comingSoonUrl && <SpanCircle layoutId="circle" />}
+              COMING SOON{" "}
+              {comingSoonUrl && <SpanCircle layoutId="circle">✨</SpanCircle>}
             </Item>
           </Link>
           <Link to={`now-playing`}>
             <Item>
-              NOW PLAYING {nowPlayingUrl && <SpanCircle layoutId="circle" />}
+              NOW PLAYING{" "}
+              {nowPlayingUrl && <SpanCircle layoutId="circle">✨</SpanCircle>}
             </Item>
           </Link>
         </Items>

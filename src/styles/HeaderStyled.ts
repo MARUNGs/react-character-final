@@ -30,9 +30,8 @@ export const Item = styled.li`
 `;
 
 export const SpanCircle = styled(motion.span)`
-  width: 50px;
+  width: 5px;
   height: 5px;
-  background-color: #e51013;
   border-radius: 5px;
 
   position: absolute;

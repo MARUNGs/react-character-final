@@ -52,7 +52,7 @@ export const Movie = styled(motion.div)`
 
 export const MovieImgDiv = styled.div<{ $bgImg: string }>`
   width: 100%;
-  height: 500px;
+  height: 300px;
   background-size: cover;
   background-position: center center;
   background-image: linear-gradient(to top, black, transparent),
