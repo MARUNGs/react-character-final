@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { IMovie } from "../types/interface";
 
-function Movie() {
+function Movie(id: number) {
   return (
     <>
       <h1>hey</h1>

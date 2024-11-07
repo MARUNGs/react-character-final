@@ -128,7 +128,7 @@ function Popular() {
                   {movieInfo && (
                     <>
                       {/* 하위 컴포넌트로 제작해야 할듯... */}
-                      <Movie />
+                      <Movie id={characterId} />
 
                       {/* <MovieX
                         onClick={onOverlayClicked}
