@@ -38,7 +38,7 @@ function Modal({ id, scrollY }: IModal) {
   return (
     <>
       <ModalContainer
-        layoutId={`${movieMatch?.params.movieId + ""}`}
+        layoutId={`${header}-${movieMatch?.params.movieId + ""}`}
         style={{ top: scrollY + 35 }}
       >
         <MovieX

@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { makeImagePath } from "../api/data";
 import { Card, Img } from "../styles/ScreenStyled";
 import { cardVars } from "../types/variants";
-import { useSetRecoilState } from "recoil";
-import { idSelector } from "../store/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { headerSelector, idSelector } from "../store/atoms";
 
 interface ICardBox {
   id: number;
@@ -13,6 +13,7 @@ interface ICardBox {
 function CardBox({ id, imgPath }: ICardBox) {
   const nagivate = useNavigate();
   const setMovieId = useSetRecoilState(idSelector);
+  const header = useRecoilValue(headerSelector);
 
   // cardBox를 누르면 url를 설정한다.
   const onCardBoxClicked = (id: number) => {
@@ -23,7 +24,7 @@ function CardBox({ id, imgPath }: ICardBox) {
   return (
     <>
       <Card
-        layoutId={String(`${id}`)}
+        layoutId={String(`${header}-${id}`)}
         variants={cardVars}
         initial="init"
         animate="doing"

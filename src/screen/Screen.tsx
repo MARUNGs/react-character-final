@@ -5,7 +5,7 @@ import { containerVars } from "../types/variants";
 import Modal from "../components/Modal";
 import CardBox from "../components/CardBox";
 import { useRecoilValue } from "recoil";
-import { idSelector } from "../store/atoms";
+import { headerSelector, idSelector } from "../store/atoms";
 import { useCustomQuery } from "../hooks/useQueryTitle";
 import { IPopular } from "../types/interface";
 
@@ -13,6 +13,7 @@ function Screen() {
   const movieId = useRecoilValue(idSelector);
   const movieMatch = useMatch("movie/:movieId");
   const { scrollY } = useScroll();
+  const header = useRecoilValue(headerSelector);
 
   // api - 영화 리스트 호출
   const { isLoading, data } = useCustomQuery();
@@ -29,7 +30,7 @@ function Screen() {
             <AnimatePresence>
               {data?.map((info: IPopular) => (
                 <CardBox
-                  key={info.id}
+                  key={`${header}-${info.id}`}
                   id={info.id}
                   imgPath={info.poster_path}
                 />
