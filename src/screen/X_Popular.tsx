@@ -7,7 +7,7 @@ import {
 import { ETitle } from "../types/interface";
 import { AnimatePresence, useScroll } from "framer-motion";
 import { useMatch } from "react-router-dom";
-import { containerVars } from "../types/variants";
+import { containerVars } from "../styles/variants";
 import Modal from "../components/Modal";
 import CardBox from "../components/CardBox";
 import { useRecoilValue } from "recoil";

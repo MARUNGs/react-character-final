@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { makeImagePath } from "../api/data";
 import { Card, Img } from "../styles/ScreenStyled";
-import { cardVars } from "../types/variants";
+import { cardVars } from "../styles/variants";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { headerSelector, idSelector } from "../store/atoms";
 
