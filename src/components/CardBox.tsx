@@ -27,7 +27,7 @@ function CardBox({ id, imgPath }: ICardBox) {
         layoutId={String(`${header}-${id}`)}
         variants={cardVars}
         initial="init"
-        animate="doing"
+        animate="animate"
         whileHover="hover"
         transition={{ type: "tween" }}
         onClick={() => onCardBoxClicked(id)}

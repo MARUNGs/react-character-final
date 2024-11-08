@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Root from "../Root";
+import Root from "../screen/Root";
 import Screen from "../screen/Screen";
 
 const router = createBrowserRouter([

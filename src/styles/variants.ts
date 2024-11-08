@@ -15,7 +15,7 @@ export const cardVars = {
   init: {
     scale: 0,
   },
-  doing: {
+  animate: {
     scale: 1,
   },
   hover: {

@@ -23,15 +23,13 @@ function Screen() {
       {!isLoading && (
         <Container>
           <Grid variants={containerVars} initial="init" animate="animate">
-            <AnimatePresence>
-              {data?.map((info: IPopular) => (
-                <CardBox
-                  key={`${header}-${info.id}`}
-                  id={info.id}
-                  imgPath={info.poster_path}
-                />
-              ))}
-            </AnimatePresence>
+            {data?.map((info: IPopular) => (
+              <CardBox
+                key={`${header}-${info.id}`}
+                id={info.id}
+                imgPath={info.poster_path}
+              />
+            ))}
           </Grid>
 
           <AnimatePresence>
