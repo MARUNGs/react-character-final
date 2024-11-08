@@ -1,9 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../Root";
 import Screen from "../screen/Screen";
-import Popular from "../screen/X_Popular";
-import ComingSoon from "../screen/X_ComingSoon";
-import NowPlaying from "../screen/X_NowPlaying";
 
 const router = createBrowserRouter([
   {

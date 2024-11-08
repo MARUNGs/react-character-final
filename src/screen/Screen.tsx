@@ -1,23 +1,18 @@
-import {
-  Container,
-  Grid,
-  DarkOverlay,
-  ModalContainer,
-} from "../styles/ScreenStyled";
+import { Container, Grid, DarkOverlay } from "../styles/ScreenStyled";
 import { AnimatePresence, useScroll } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import { containerVars } from "../types/variants";
 import Modal from "../components/Modal";
 import CardBox from "../components/CardBox";
 import { useRecoilValue } from "recoil";
-import { headerSelector, idSelector } from "../store/atoms";
+import { idSelector } from "../store/atoms";
 import { useCustomQuery } from "../hooks/useQueryTitle";
+import { IPopular } from "../types/interface";
 
 function Screen() {
   const movieId = useRecoilValue(idSelector);
   const movieMatch = useMatch("movie/:movieId");
   const { scrollY } = useScroll();
-  // const header = useRecoilValue(headerSelector);
 
   // api - 영화 리스트 호출
   const { isLoading, data } = useCustomQuery();
@@ -32,7 +27,7 @@ function Screen() {
         <Container>
           <Grid variants={containerVars} initial="init" animate="animate">
             <AnimatePresence>
-              {data?.map((info) => (
+              {data?.map((info: IPopular) => (
                 <CardBox
                   key={info.id}
                   id={info.id}

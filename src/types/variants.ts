@@ -1,5 +1,7 @@
 export const containerVars = {
-  init: {},
+  init: {
+    opacity: 0,
+  },
   animate: {
     transition: {
       delayChildren: 0.2,

@@ -12,8 +12,6 @@ import {
 } from "../styles/ScreenStyled";
 import { headerSelector } from "../store/atoms";
 import { useRecoilValue } from "recoil";
-import { useScroll } from "framer-motion";
-import { useEffect, useState } from "react";
 
 interface IModal {
   id: number;
