@@ -22,7 +22,12 @@ function Screen() {
     <>
       {!isLoading && (
         <Container>
-          <Grid variants={containerVars} initial="init" animate="animate">
+          <Grid
+            key={header}
+            variants={containerVars}
+            initial="hidden"
+            animate="visible"
+          >
             {data?.map((info: IPopular) => (
               <CardBox
                 key={`${header}-${info.id}`}

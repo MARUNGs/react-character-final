@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { makeImagePath } from "../api/data";
 import { Card, Img } from "../styles/ScreenStyled";
-import { cardVars } from "../styles/variants";
+import { imgVars, itemVars } from "../styles/variants";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { headerSelector, idSelector } from "../store/atoms";
 
@@ -25,14 +25,18 @@ function CardBox({ id, imgPath }: ICardBox) {
     <>
       <Card
         layoutId={String(`${header}-${id}`)}
-        variants={cardVars}
-        initial="init"
-        animate="animate"
-        whileHover="hover"
-        transition={{ type: "tween" }}
+        variants={itemVars}
+        // initial="hidden"
+        // animate="visible"
+        // whileHover="hover"
+        // transition={{ type: "tween" }}
         onClick={() => onCardBoxClicked(id)}
       >
-        <Img src={makeImagePath(imgPath)} />
+        <Img
+          src={makeImagePath(imgPath)}
+          variants={imgVars}
+          whileHover="hover"
+        />
       </Card>
     </>
   );

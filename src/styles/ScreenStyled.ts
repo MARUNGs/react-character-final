@@ -15,7 +15,7 @@ export const Card = styled(motion.div).attrs({
   cursor: pointer;
 `;
 
-export const Img = styled.img`
+export const Img = styled(motion.img)`
   border-radius: 15px;
   filter: brightness(30%);
 
