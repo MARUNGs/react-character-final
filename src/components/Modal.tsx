@@ -25,7 +25,7 @@ function Modal({ id, scrollY }: IModal) {
 
   // api - 영화 상세내용
   const { data } = useQuery<IMovie>({
-    queryKey: ["popular", "id"],
+    queryKey: ["movie", "id"],
     queryFn: () => getMovie(id),
     enabled: !!id,
   });

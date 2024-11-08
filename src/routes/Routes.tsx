@@ -10,32 +10,18 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Screen />,
-        children: [
-          {
-            path: "movie/:movieId",
-            element: <Screen />,
-          },
-        ],
+      },
+      {
+        path: "movie/:movieId",
+        element: <Screen />,
       },
       {
         path: "coming-soon",
         element: <Screen />,
-        children: [
-          {
-            path: "movie/:movieId",
-            element: <Screen />,
-          },
-        ],
       },
       {
         path: "now-playing",
         element: <Screen />,
-        children: [
-          {
-            path: "movie/:movieId",
-            element: <Screen />,
-          },
-        ],
       },
     ],
   },

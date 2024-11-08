@@ -3,9 +3,10 @@ export const containerVars = {
     opacity: 0,
   },
   animate: {
+    opacity: 1,
     transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.2,
+      staggerChildren: 0.1, // 자식 요소들이 0.1초 간격으로 순서대로 나타남
+      delayChildren: 0.2, // 첫 번째 요소가 나타나기 전의 지연 시간
     },
   },
 };
