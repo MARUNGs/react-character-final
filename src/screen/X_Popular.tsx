@@ -52,7 +52,7 @@ function Popular() {
                   )}`}
                   style={{ top: scrollY.get() + 35 }}
                 >
-                  {movieId && <Modal id={movieId} />}
+                  {movieId && <Modal id={movieId} scrollY={scrollY.get()} />}
                 </ModalContainer>
               </>
             ) : null}

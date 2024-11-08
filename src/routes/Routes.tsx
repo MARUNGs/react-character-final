@@ -32,11 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: "now-playing",
-        element: <NowPlaying />,
+        element: <Screen />,
         children: [
           {
             path: "movie/:movieId",
-            element: <NowPlaying />,
+            element: <Screen />,
           },
         ],
       },

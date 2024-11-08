@@ -15,9 +15,9 @@ import { useCustomQuery } from "../hooks/useQueryTitle";
 
 function Screen() {
   const movieId = useRecoilValue(idSelector);
-  const movieMatch = useMatch("/movie/:movieId");
+  const movieMatch = useMatch("movie/:movieId");
   const { scrollY } = useScroll();
-  const header = useRecoilValue(headerSelector);
+  // const header = useRecoilValue(headerSelector);
 
   // api - 영화 리스트 호출
   const { isLoading, data } = useCustomQuery();
@@ -46,12 +46,7 @@ function Screen() {
             {movieMatch ? (
               <>
                 <DarkOverlay animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-                <ModalContainer
-                  layoutId={`${header}${String(movieMatch.params.movieId)}`}
-                  style={{ top: scrollY.get() + 35 }}
-                >
-                  {movieId && <Modal id={movieId} />}
-                </ModalContainer>
+                {movieId && <Modal id={movieId} scrollY={scrollY.get()} />}
               </>
             ) : null}
           </AnimatePresence>
