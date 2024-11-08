@@ -5,11 +5,11 @@ export const Container = styled.div.attrs({
   className: "flex justify-center px-4 m-20",
 })``;
 
-export const GridContainer = styled(motion.div).attrs({
+export const Grid = styled(motion.div).attrs({
   className: `grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl w-full`,
 })``;
 
-export const CardBox = styled(motion.div).attrs({
+export const Card = styled(motion.div).attrs({
   className: "h-90 border border-gray-300 rounded-lg",
 })`
   cursor: pointer;
@@ -36,7 +36,7 @@ export const DarkOverlay = styled(motion.div)`
   opacity: 0;
 `;
 
-export const Movie = styled(motion.div)`
+export const ModalContainer = styled(motion.div)`
   // top 설정은 컴포넌트 내부에서 style로 설정할 것.
   position: absolute;
 
@@ -84,4 +84,13 @@ export const MovieX = styled.svg`
   right: 20px;
 
   cursor: pointer;
+`;
+
+export const Ul = styled.ul`
+  margin-top: 15px;
+  margin-left: 10px;
+
+  li {
+    margin-bottom: 5px;
+  }
 `;

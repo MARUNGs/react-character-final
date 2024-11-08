@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getComingSoon, makeImagePath } from "../api/data";
 import { ETitle, IPopular } from "../types/interface";
 import { useState } from "react";
-import { Container, GridContainer, CardBox, Img } from "../styles/ScreenStyled";
+import { Container, Grid, Card, Img } from "../styles/ScreenStyled";
 import { AnimatePresence } from "framer-motion";
 import { useMatch, useNavigate } from "react-router-dom";
 
-const cardBoxVars = {
+const CardVars = {
   init: {
     scale: 0,
   },
@@ -34,9 +34,9 @@ function CommingSoon() {
   });
 
   // function
-  // 1. cardBox를 누르면 url를 설정한다.
+  // 1. Card를 누르면 url를 설정한다.
   // 2. 상태값에 characterId 값을 설정한다.
-  const onCardBoxClicked = (id: number) => {
+  const onCardClicked = (id: number) => {
     nagivate(`movie/${id}`);
     setCharacterId(id);
   };
@@ -45,27 +45,27 @@ function CommingSoon() {
     <>
       {isLoading ? (
         <Container>
-          <GridContainer>Loading...</GridContainer>
+          <Grid>Loading...</Grid>
         </Container>
       ) : (
         <Container>
-          <GridContainer>
+          <Grid>
             <AnimatePresence>
               {data?.map((character, i) => (
-                <CardBox
+                <Card
                   key={i}
-                  variants={cardBoxVars}
+                  variants={CardVars}
                   initial="init"
                   animate="doing"
                   whileHover="hover"
                   layoutId={String(`${ETitle.COMINGSOON}${character.id}`)}
-                  onClick={() => onCardBoxClicked(character.id)}
+                  onClick={() => onCardClicked(character.id)}
                 >
                   <Img src={makeImagePath(character.poster_path)} />
-                </CardBox>
+                </Card>
               ))}
             </AnimatePresence>
-          </GridContainer>
+          </Grid>
         </Container>
       )}
     </>
