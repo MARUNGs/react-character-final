@@ -50,7 +50,7 @@ export interface DataProps {
 }
 
 export enum ETitle {
-  "POPULAR",
-  "COMINGSOON",
-  "NOWPLAYING",
+  "POPULAR" = "popular",
+  "COMINGSOON" = "coming-soon",
+  "NOWPLAYING" = "now-playing",
 }

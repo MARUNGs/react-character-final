@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { IMovie } from "../types/interface";
+import { ETitle, IMovie } from "../types/interface";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie, makeImagePath } from "../api/data";
 import {
@@ -9,6 +9,8 @@ import {
   MovieX,
   Ul,
 } from "../styles/ScreenStyled";
+import { headerSelector } from "../store/atoms";
+import { useRecoilValue } from "recoil";
 
 interface IModal {
   id: number;
@@ -16,6 +18,7 @@ interface IModal {
 
 function Modal({ id }: IModal) {
   const nagivate = useNavigate();
+  const header = useRecoilValue(headerSelector);
 
   // api - 영화 상세내용
   const { data } = useQuery<IMovie>({
@@ -25,7 +28,10 @@ function Modal({ id }: IModal) {
   });
 
   // overlay 영역 클릭시, 메인 url로 돌아가고 characterId값을 초기화한다.
-  const onClick = () => nagivate("/");
+  const onClick = () => {
+    const title = header === ETitle.POPULAR ? "" : header;
+    nagivate(`/${title}`);
+  };
 
   return (
     <>

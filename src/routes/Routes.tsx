@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Popular from "../screen/Popular";
+import Popular from "../screen/X_Popular";
 import Root from "../Root";
-import ComingSoon from "../screen/ComingSoon";
-import NowPlaying from "../screen/NowPlaying";
+import ComingSoon from "../screen/X_ComingSoon";
+import NowPlaying from "../screen/X_NowPlaying";
+import Screen from "../screen/Screen";
 
 const router = createBrowserRouter([
   {
@@ -11,31 +12,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Popular />,
+        element: <Screen />,
       },
       {
-        path: "movie/:movieId",
-        element: <Popular />,
+        path: "/movie/:movieId",
+        element: <Screen />,
       },
       {
         path: "coming-soon",
-        element: <ComingSoon />,
-        children: [
-          {
-            path: "movie/:movieId",
-            element: <ComingSoon />,
-          },
-        ],
+        element: <Screen />,
+        // children: [
+        //   {
+        //     path: "movie/:movieId",
+        //     element: <Screen />,
+        //   },
+        // ],
       },
       {
         path: "now-playing",
-        element: <NowPlaying />,
-        children: [
-          {
-            path: "movie/:movieId",
-            element: <NowPlaying />,
-          },
-        ],
+        element: <Screen />,
+        // children: [
+        //   {
+        //     path: "movie/:movieId",
+        //     element: <Screen />,
+        //   },
+        // ],
       },
     ],
   },

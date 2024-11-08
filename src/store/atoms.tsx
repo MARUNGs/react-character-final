@@ -1,51 +1,23 @@
-// 시도해보았으면 좋았을지도 모르는 ...
-
 import { atom, selector } from "recoil";
-import { IPopular } from "../types/interface";
 
-export interface IObject {
-  title: string;
-  flag: boolean;
-}
-
-const headerState = atom<IObject[]>({
+const headerState = atom<string>({
   key: "headerState",
-  default: [
-    { title: "POPULAR", flag: true },
-    { title: "COMING", flag: false },
-    { title: "NOW PLAYING", flag: false },
-  ],
+  default: "",
 });
 
-export const headerSelector = selector<IObject[]>({
+export const headerSelector = selector<string>({
   key: "headerSelector",
   get: ({ get }) => get(headerState),
-  set: ({ set }, object) => set(headerState, object),
+  set: ({ set }, title) => set(headerState, title),
 });
 
-const popularState = atom<IPopular[]>({
-  key: "popularState",
-  default: [],
+export const idState = atom<number>({
+  key: "idState",
+  default: 0,
 });
 
-export const popularSelector = selector<IPopular[]>({
-  key: "popularSelector",
-  get: ({ get }) => get(popularState),
-  set: ({ set }, arr) => set(popularState, arr as IPopular[]),
-});
-
-const comingSoonState = atom<IPopular[]>({
-  key: " comingSoon",
-  default: [],
-});
-
-export const comingSoonSelector = selector<IPopular[]>({
-  key: "comingSoonSelector",
-  get: ({ get }) => get(comingSoonState),
-  set: ({ set }, arr) => set(comingSoonState, arr as IPopular[]),
-});
-
-export const loadingState = atom<boolean>({
-  key: "loadingState",
-  default: false,
+export const idSelector = selector<number>({
+  key: "idSelector",
+  get: ({ get }) => get(idState),
+  set: ({ set }, value) => set(idState, value),
 });
